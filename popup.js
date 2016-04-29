@@ -5,11 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   chrome.windows.getAll(null, function(windows) {
-    // var targetWindow = windows.find(function(window) {
-    //   return window.focused;
-    // });
     var targetWindow = windows[0];
 
+    // target window first, minimized windows last
     var sorted = windows.sort(function(window) {
       if (window.id == targetWindow.id) return -1;
       if (window.state === 'minimized') return 1;
@@ -25,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
+    // immediately close popup
     window.close();
   });
 }, false);
