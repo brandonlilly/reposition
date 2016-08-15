@@ -7,10 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
   chrome.windows.getAll(null, function(windows) {
     var targetWindow = windows[0];
 
-    // target window first, minimized windows last
+    // target window first, normal, then incognito, then minimized windows last
     var sorted = windows.sort(function(window) {
       if (window.id == targetWindow.id) return -1;
-      if (window.state === 'minimized') return 1;
+      if (window.incognito === true) return 1;
+      if (window.state === 'minimized') return 2;
       return 0;
     });
 
