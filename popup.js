@@ -15,7 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
       return 0;
     });
 
-    sorted.forEach(function(window, index) {
+    var ignoredStates = ['maximized', 'fullscreen'];
+    var sortedAndfiltered = sorted.filter(function(window) {
+      return !ignoredStates.includes(window.state);
+    });
+
+    sortedAndfiltered.forEach(function(window, index) {
       chrome.windows.update(window.id, {
         top:  targetWindow.top + offset.y * index,
         left: targetWindow.left + offset.x * index,
